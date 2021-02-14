@@ -1,0 +1,58 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+        - name: account
+          image: registry.localtest.com/account:1.1
+          ports:
+            - containerPort: 8180
+      hostAliases:
+      - ip: "20.194.18.209"
+        hostnames:
+        - "account.skcc.co.kr"
+        - "apigateway.skcc.co.kr"
+        - "bff.skcc.co.kr"
+        - "cart.skcc.co.kr"
+        - "order.skcc.co.kr"
+        - "payment.skcc.co.kr"
+        - "product.skcc.co.kr"
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: account-ingress
+spec:
+  rules:
+  - host: account.skcc.co.kr
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: account-svc
+          servicePort: 8180
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-svc
+  labels:
+    app: account
+spec:
+  ports:
+    - port: 8180
+      targetPort: 8180
+      name: account-svc
+  selector:
+    app: account
