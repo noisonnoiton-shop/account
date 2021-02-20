@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.skcc.account.domain.Account;
-import com.skcc.account.domain.Account.AccountBuilder;
 import com.skcc.account.repository.AccountMapper;
 import com.skcc.account.repository.AccountRepository;
 
