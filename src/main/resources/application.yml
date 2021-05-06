@@ -14,9 +14,9 @@ spring:
     store-type: redis
 #    spring.session.store-type=redis
   redis:
-    host: 127.0.0.1
+    host: redis-session
     port: 6379
-    password: skcc
+    #password: skcc
   jpa:
     hibernate.ddl-auto: create
     show-sql: true
@@ -39,7 +39,7 @@ spring:
           environment:
             spring:
               rabbitmq:
-                host: 127.0.0.1
+                host: rabbitmq
                 port: 5672
                 username: labs
                 password: awesome-rabbitmq
