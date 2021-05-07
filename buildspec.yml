@@ -21,7 +21,7 @@ phases:
   post_build:
     commands:
       - echo docker push,,,
-      - aws ecr get-login-password --region ap-northeast-2 --profile=admin | docker login --username AWS --password-stdin 170247361816.dkr.ecr.ap-northeast-2.amazonaws.com
+      - docker login --username AWS --password=$ECR_PASS 170247361816.dkr.ecr.ap-northeast-2.amazonaws.com
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Build completed on `date`
 artifacts:
