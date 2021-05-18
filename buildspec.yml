@@ -17,14 +17,13 @@ phases:
       - echo Build started on `date`
       - echo maven build,,
       - pwd
-      - mvn clean package -DskipTests --quiet -Dmaven.repo.local=$CODEBUILD_SHOP
+      - mvn clean package -DskipTests --quiet # -Dmaven.repo.local=$CODEBUILD_SHOP
       - echo docker build,,
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG 
   post_build:
     commands:
       - echo docker push,,,
-      #- docker login --username AWS --password=$ECR_PASS 170247361816.dkr.ecr.ap-northeast-2.amazonaws.com
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Build completed on `date`
 artifacts:
