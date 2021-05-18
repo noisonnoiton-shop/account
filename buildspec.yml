@@ -10,7 +10,7 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - echo $COMMIT_HASH
       - echo $IMAGE_TAG
-      - $(aws ecr get-login --no-include-email --region ap-northeast-2)
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
   build:
     commands:
       - echo Build started on `date`
