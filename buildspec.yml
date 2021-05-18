@@ -1,9 +1,5 @@
 version: 0.2
 
-cache:
-  paths:
-    - '/root/.m2/**/*'
-
 phases:
   install:
     runtime-versions:
