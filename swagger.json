@@ -1,0 +1,411 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "account API",
+      "version": "1.0",
+      "title": "account",
+      "termsOfService": "urn:tos",
+      "contact": {
+        
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      }
+    },
+    "host": "localhost:8180",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "account-bank-controller",
+        "description": "Account Bank Controller"
+      },
+      {
+        "name": "account-controller",
+        "description": "Account Controller"
+      }
+    ],
+    "paths": {
+      "/v1/accountbanks/{accountId}": {
+        "get": {
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200"
+              }
+            },
+            "uri": "http://a1001c0e806a748679deb2115e1930bf-0f412fe779c96488.elb.ap-northeast-2.amazonaws.com/v1/accountbanks/{accountId}",
+            "passthroughBehavior": "when_no_match",
+            "connectionType": "VPC_LINK",
+            "connectionId": "vwdm61",
+            "httpMethod": "GET",
+            "type": "http_proxy"
+          },
+          "tags": [
+            "account-bank-controller"
+          ],
+          "summary": "findAccountBankByAccountId",
+          "operationId": "findAccountBankByAccountIdUsingGET",
+          "parameters": [
+            {
+              "name": "X-TXID",
+              "in": "header",
+              "description": "X-TXID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "accountId",
+              "in": "path",
+              "description": "accountId",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/AccountBank"
+              }
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/v1/accounts": {
+        "post": {
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200"
+              }
+            },
+            "uri": "http://a1001c0e806a748679deb2115e1930bf-0f412fe779c96488.elb.ap-northeast-2.amazonaws.com/v1/accounts",
+            "passthroughBehavior": "when_no_match",
+            "connectionType": "VPC_LINK",
+            "connectionId": "vwdm61",
+            "httpMethod": "POST",
+            "type": "http_proxy"
+          },
+          "tags": [
+            "account-controller"
+          ],
+          "summary": "createAccount",
+          "operationId": "createAccountUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "account",
+              "description": "account",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            },
+            "201": {
+              "description": "Created"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/v1/accounts/events": {
+        "get": {
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200"
+              }
+            },
+            "uri": "http://a1001c0e806a748679deb2115e1930bf-0f412fe779c96488.elb.ap-northeast-2.amazonaws.com/v1/accounts/events",
+            "passthroughBehavior": "when_no_match",
+            "connectionType": "VPC_LINK",
+            "connectionId": "vwdm61",
+            "httpMethod": "GET",
+            "type": "http_proxy"
+          },
+          "tags": [
+            "account-controller"
+          ],
+          "summary": "getAccountEvent",
+          "operationId": "getAccountEventUsingGET",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/AccountEvent"
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/v1/accounts/{id}": {
+        "get": {
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200"
+              }
+            },
+            "uri": "http://a1001c0e806a748679deb2115e1930bf-0f412fe779c96488.elb.ap-northeast-2.amazonaws.com/v1/accounts/{id}",
+            "passthroughBehavior": "when_no_match",
+            "connectionType": "VPC_LINK",
+            "connectionId": "vwdm61",
+            "httpMethod": "GET",
+            "type": "http_proxy"
+          },
+          "tags": [
+            "account-controller"
+          ],
+          "summary": "findById",
+          "operationId": "findByIdUsingGET",
+
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "id",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Account"
+              }
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/v1/login": {
+        "post": {
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200"
+              }
+            },
+            "uri": "http://a1001c0e806a748679deb2115e1930bf-0f412fe779c96488.elb.ap-northeast-2.amazonaws.com/v1/login",
+            "passthroughBehavior": "when_no_match",
+            "connectionType": "VPC_LINK",
+            "connectionId": "vwdm61",
+            "httpMethod": "POST",
+            "type": "http_proxy"
+          },
+          "tags": [
+            "account-controller"
+          ],
+          "summary": "login",
+          "operationId": "loginUsingPOST",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "account",
+              "description": "account",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Account"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Account"
+              }
+            },
+            "201": {
+              "description": "Created"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "deprecated": false
+        }
+      }
+    },
+    "definitions": {
+      "Account": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "title": "Account"
+      },
+      "AccountBank": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "active": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "bankNumber": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "AccountBank"
+      },
+      "AccountEvent": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "AccountCreated",
+              "AccountEdited",
+              "AccountCreateFailed",
+              "AccountEditFailed"
+            ]
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "payload": {
+            "$ref": "#/definitions/AccountPayload"
+          },
+          "txId": {
+            "type": "string"
+          }
+        },
+        "title": "AccountEvent"
+      },
+      "AccountPayload": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "title": "AccountPayload"
+      }
+    }
+  }
