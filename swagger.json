@@ -48,13 +48,6 @@
           "operationId": "findAccountBankByAccountIdUsingGET",
           "parameters": [
             {
-              "name": "X-TXID",
-              "in": "header",
-              "description": "X-TXID",
-              "required": true,
-              "type": "string"
-            },
-            {
               "name": "accountId",
               "in": "path",
               "description": "accountId",
