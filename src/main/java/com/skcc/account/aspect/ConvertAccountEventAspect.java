@@ -1,5 +1,7 @@
 package com.skcc.account.aspect;
 
+import com.skcc.account.event.message.AccountEventType;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.skcc.account.event.message.AccountEventType;
 
 @Aspect
 @Component
