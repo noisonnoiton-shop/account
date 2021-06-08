@@ -4,12 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.esotericsoftware.minlog.Log;
+import com.skcc.account.controller.AccountController;
 import com.skcc.account.domain.Account;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.event.message.AccountEventType;
@@ -17,6 +12,13 @@ import com.skcc.account.event.message.AccountPayload;
 import com.skcc.account.publish.AccountPublish;
 import com.skcc.account.repository.AccountMapper;
 import com.skcc.account.repository.AccountRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountService {
@@ -35,6 +37,8 @@ public class AccountService {
 	
 	@Value("${domain.account.name}")
 	private String domainName;
+
+	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 	
 	@Autowired
 	public AccountService(AccountRepository accountRepository, AccountPublish accountPublish) {
@@ -169,7 +173,7 @@ public class AccountService {
 	}
 	
 	public AccountEvent convertAccountToAccountEvent(String txId, long id, AccountEventType accountEventType) {
-		Log.info("txid : {}", txId);
+		log.info("txid : {}", txId);
 		
 		Account account = this.findById(id);
 		
@@ -182,7 +186,7 @@ public class AccountService {
 		accountEvent.setPayload(new AccountPayload(account.getId(), account.getUsername(), account.getName(), account.getMobile(), account.getScope(), account.getAddress()));
 		accountEvent.setTxId(txId);
 		
-		Log.info(accountEvent.toString());
+		log.info(accountEvent.toString());
 
 		return accountEvent;
 	}
