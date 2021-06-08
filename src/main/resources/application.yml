@@ -14,7 +14,8 @@ spring:
     store-type: redis
 #    spring.session.store-type=redis
   redis:
-    host: redis-session
+    #host: redis-session
+    host: localhost
     port: 6379
     #password: skcc
   jpa:
@@ -39,7 +40,8 @@ spring:
           environment:
             spring:
               rabbitmq:
-                host: rabbitmq
+                #host: rabbitmq
+                host: localhost
                 port: 5672
                 username: labs
                 password: awesome-rabbitmq

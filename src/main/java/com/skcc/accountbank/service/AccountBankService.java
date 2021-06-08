@@ -37,7 +37,7 @@ public class AccountBankService {
 		this.accountBankPublish = accountBankPublish;
 	}
 	
-	public AccountBank findAccountBankByAccountId(String txId, long accountId) {
+	public AccountBank findAccountBankByAccountId(long accountId) {
 		return accountBankMapper.findAccountBankByAccountId(accountId);
 	}
 	

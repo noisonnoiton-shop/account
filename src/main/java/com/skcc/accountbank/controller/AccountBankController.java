@@ -30,14 +30,10 @@ public class AccountBankController {
 	}
 	
 	@GetMapping(value="/accountbanks/{accountId}")
-	public AccountBank findAccountBankByAccountId(@RequestHeader("X-TXID") String txId, @PathVariable long accountId) {
+	public AccountBank findAccountBankByAccountId(@PathVariable long accountId) {
 		log.info(String.valueOf(accountId));
 
-		// zuul prefilter 제거하여, 임의로 생성,,
-		UUID uuid = UUID.randomUUID();
-		txId = String.format("%s-%s", new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()), uuid.toString());
-
-		return accountBankService.findAccountBankByAccountId(txId, accountId);
+		return accountBankService.findAccountBankByAccountId(accountId);
 	}
 	
 }
