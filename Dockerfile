@@ -1,4 +1,7 @@
 FROM openjdk:11-jre-slim
-ADD target/awesome-account-service-0.0.1-SNAPSHOT.jar app.jar
+
+LABEL maintainer="noisonnoiton"
+
+COPY target/awesome-account-service-0.0.1-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS=""
 ENTRYPOINT ["java","-jar","/app.jar"]
