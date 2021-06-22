@@ -1,7 +1,3 @@
--- database
-create database account;
-use database account;
-
 --sequence
 create sequence event_seq;
 
