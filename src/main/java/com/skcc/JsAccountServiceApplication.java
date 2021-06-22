@@ -1,9 +1,5 @@
 package com.skcc;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
-
 import javax.sql.DataSource;
 
 import com.skcc.account.domain.Account;
@@ -13,8 +9,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.client.RestTemplate;
@@ -57,5 +56,11 @@ public class JsAccountServiceApplication {
     	accountRepository.save(account);
     	
     	return "Created,,,,";
+	}
+
+	@Configuration
+	@EnableAutoConfiguration(exclude = {H2ConsoleAutoConfiguration.class})
+	public class ClientAppConfiguration {
+		//it can be left blank
 	}
 }
