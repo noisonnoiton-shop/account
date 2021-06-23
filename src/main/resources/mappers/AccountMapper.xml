@@ -40,7 +40,7 @@
 	</update>
 	
 	<select id="getAccountEventId" resultType="long">
-		select event_seq.nextval;
+		select nextval(event_seq);
 	</select>
 	
 	<insert id="createAccountEvent" parameterMap="AccountEvent">

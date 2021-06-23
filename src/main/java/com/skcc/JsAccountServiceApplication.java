@@ -57,10 +57,4 @@ public class JsAccountServiceApplication {
     	
     	return "Created,,,,";
 	}
-
-	@Configuration
-	@EnableAutoConfiguration(exclude = {H2ConsoleAutoConfiguration.class})
-	public class ClientAppConfiguration {
-		//it can be left blank
-	}
 }

@@ -1,10 +1,10 @@
 --sequence
-select event_seq.nextval;
-select event_seq.nextval;
-select event_seq.nextval;
-select event_seq.nextval;
-select event_seq.nextval;
-select event_seq.nextval;
+select nextval(event_seq);
+select nextval(event_seq);
+select nextval(event_seq);
+select nextval(event_seq);
+select nextval(event_seq);
+select nextval(event_seq);
 
 --account
 INSERT INTO accounts 

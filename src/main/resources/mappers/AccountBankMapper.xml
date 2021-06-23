@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="getAccountBankEventId" parameterType="long" resultType="long">
-		select event_seq.nextval;
+		select nextval(event_seq);
 	</select>
 	
 	<insert id="createAccountBankEvent" parameterMap="AccountBankEvent">
