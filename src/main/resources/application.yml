@@ -7,8 +7,6 @@ domain:
   accountBank:
     name: accountBank
 
-sequence-nextval: nextval(event_seq)
-
 spring:
   application:
     name: awesome-account-service

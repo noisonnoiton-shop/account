@@ -4,6 +4,10 @@
 
 <configuration>
 
-    <properties resource="application.yml"></properties>
+    <properties>
+        <property name="h2-event-seq" value="event_seqaa.nextval" />
+        <property name="mariadb-event-seq" value="nextval(event_seq)" />
+        <property name="event-nextval" value="${ENV == 'prd' ? 'nextval(event_seq)' : 'event_seq.nextval'}" />
+    </properties>
 
 </configuration>
