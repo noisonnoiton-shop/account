@@ -7,6 +7,9 @@ domain:
   accountBank:
     name: accountBank
 
+mybatis:
+  config-location: mybatis-config-h2.xml
+
 spring:
   application:
     name: awesome-account-service

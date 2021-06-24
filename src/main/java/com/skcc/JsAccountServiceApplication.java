@@ -2,12 +2,16 @@ package com.skcc;
 
 import javax.sql.DataSource;
 
+import com.skcc.account.aspect.ConvertAccountEventAspect;
 import com.skcc.account.domain.Account;
 import com.skcc.account.repository.AccountRepository;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -36,13 +40,18 @@ public class JsAccountServiceApplication {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+
+	@Value("${mybatis.config-location}")
+	String mybatisConfig;
+
+	private static final Logger log = LoggerFactory.getLogger(ConvertAccountEventAspect.class);
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 
-		sessionFactory.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+		sessionFactory.setConfigLocation(applicationContext.getResource("classpath:" + mybatisConfig));
 		
 		Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*Mapper.xml");
 		
