@@ -36,13 +36,28 @@ public class AccountPayloadJsonTypeHandler extends BaseTypeHandler<Object>{
 	@Override
 	public AccountPayload getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		
-		Clob d = (Clob) rs.getObject(columnName);
+		// Clob d = (Clob) rs.getObject(columnName);
+		// if(d == null) return null;
+
+		// AccountPayload cp = null;
+		// ObjectMapper objectMapper = new ObjectMapper();
+		// try {
+		// 	cp = objectMapper.readValue(d.getSubString(1, (int) d.length()), AccountPayload.class);
+		// } catch (JsonParseException e) {
+		// 	e.printStackTrace();
+		// } catch (JsonMappingException e) {
+		// 	e.printStackTrace();
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
+
+		String d = (String) rs.getObject(columnName);
 		if(d == null) return null;
 
 		AccountPayload cp = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			cp = objectMapper.readValue(d.getSubString(1, (int) d.length()), AccountPayload.class);
+			cp = objectMapper.readValue(d, AccountPayload.class);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -52,6 +67,7 @@ public class AccountPayloadJsonTypeHandler extends BaseTypeHandler<Object>{
 		}
 		
 		return cp;
+		
 //		Object d = rs.getObject(columnName);
 //		if(d == null) return null;
 //		
