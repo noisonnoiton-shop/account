@@ -7,7 +7,7 @@ domain:
   accountBank:
     name: accountBank
 
-sequence-nextval: event_seq.nextval
+sequence-nextval: nextval(event_seq)
 
 spring:
   application:
