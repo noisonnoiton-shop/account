@@ -36,13 +36,30 @@ public class AccountBankPayloadJsonTypeHandler extends BaseTypeHandler<Object>{
 	@Override
 	public AccountBankPayload getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		
-		Clob d = (Clob) rs.getObject(columnName);
+		// Clob d = (Clob) rs.getObject(columnName);
+		// if(d == null) return null;
+
+		// AccountBankPayload cp = null;
+		// ObjectMapper objectMapper = new ObjectMapper();
+		// try {
+		// 	cp = objectMapper.readValue(d.getSubString(1, (int) d.length()), AccountBankPayload.class);
+		// } catch (JsonParseException e) {
+		// 	e.printStackTrace();
+		// } catch (JsonMappingException e) {
+		// 	e.printStackTrace();
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
+		
+		// return cp;
+
+		String d = (String) rs.getObject(columnName);
 		if(d == null) return null;
 
 		AccountBankPayload cp = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			cp = objectMapper.readValue(d.getSubString(1, (int) d.length()), AccountBankPayload.class);
+			cp = objectMapper.readValue(d, AccountBankPayload.class);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -52,22 +69,6 @@ public class AccountBankPayloadJsonTypeHandler extends BaseTypeHandler<Object>{
 		}
 		
 		return cp;
-//		Object d = rs.getObject(columnName);
-//		if(d == null) return null;
-//		
-//		List<AccountBankPayload> cps = null;
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		try {
-//			cps = objectMapper.readValue(d.toString(), new TypeReference<List<AccountBankPayload>>() {});
-//		} catch (JsonParseException e) {
-//			e.printStackTrace();
-//		} catch (JsonMappingException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return cps;
 		
 	}
 
