@@ -44,7 +44,7 @@ public class JsAccountServiceApplication {
 	@Value("${mybatis.config-location}")
 	String mybatisConfig;
 
-	private static final Logger log = LoggerFactory.getLogger(ConvertAccountEventAspect.class);
+	private static final Logger log = LoggerFactory.getLogger("main");
 	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
