@@ -1,7 +1,6 @@
 package com.skcc.account.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.skcc.account.controller.AccountController;
@@ -10,7 +9,7 @@ import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.event.message.AccountEventType;
 import com.skcc.account.event.message.AccountPayload;
 import com.skcc.account.publish.AccountPublish;
-import com.skcc.account.repository.AccountMapper;
+import com.skcc.account.repository.AccountEventRepository;
 import com.skcc.account.repository.AccountRepository;
 
 import org.slf4j.Logger;
@@ -23,14 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AccountService {
 	
-	@Autowired
-	private AccountMapper accountMapper;
+	// @Autowired
+	// private AccountMapper accountMapper;
 	
-	@Autowired
 	private AccountPublish accountPublish;
-	
-	@Autowired
 	private AccountRepository accountRepository;
+	private AccountEventRepository accountEventRepository;
 	
 	@Autowired
 	private AccountService accountService;
@@ -41,8 +38,9 @@ public class AccountService {
 	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 	
 	@Autowired
-	public AccountService(AccountRepository accountRepository, AccountPublish accountPublish) {
+	public AccountService(AccountRepository accountRepository, AccountEventRepository accountEventRepository, AccountPublish accountPublish) {
 		this.accountRepository = accountRepository;
+		this.accountEventRepository = accountEventRepository;
 		this.accountPublish = accountPublish;
 	}
 	
@@ -51,7 +49,6 @@ public class AccountService {
 		try {
 			this.checkAccount(account, resultAccount);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -87,7 +84,6 @@ public class AccountService {
 			try {
 				this.accountService.CreatePublishAccountCreateFailedEvent(account);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -161,8 +157,9 @@ public class AccountService {
 			throw new Exception();
 	}
 	
-	public boolean createAccountEvent(AccountEvent accountEvent) {
-		return this.accountMapper.createAccountEvent(accountEvent);
+	public AccountEvent createAccountEvent(AccountEvent accountEvent) {
+		// return this.accountMapper.createAccountEvent(accountEvent);
+		return this.accountEventRepository.save(accountEvent);
 	}
 	
 	public boolean publishAccountEvent(AccountEvent accountEvent) {
@@ -170,7 +167,8 @@ public class AccountService {
 	}
 	
 	public List<AccountEvent> getAccountEvent() {
-		return this.accountMapper.getAccountEvent();
+		// return this.accountMapper.getAccountEvent();
+		return this.accountEventRepository.findAll();
 	}
 	
 	public AccountEvent convertAccountToAccountEvent(String txId, long id, AccountEventType accountEventType) {
@@ -179,11 +177,11 @@ public class AccountService {
 		Account account = this.findById(id);
 		
 		AccountEvent accountEvent = new AccountEvent();
-		accountEvent.setId(this.accountMapper.getAccountEventId());
+		// accountEvent.setId(this.accountMapper.getAccountEventId());
 		accountEvent.setAccountId(account.getId());
-		accountEvent.setCreatedAt(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 		accountEvent.setDomain(this.domainName);
 		accountEvent.setEventType(accountEventType);
+		accountEvent.setCreatedAt(LocalDateTime.now());
 		accountEvent.setPayload(new AccountPayload(account.getId(), account.getUsername(), account.getName(), account.getMobile(), account.getScope(), account.getAddress()));
 		accountEvent.setTxId(txId);
 		

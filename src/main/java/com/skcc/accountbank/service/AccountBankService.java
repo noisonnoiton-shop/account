@@ -129,8 +129,7 @@ public class AccountBankService {
 		AccountBank accountBank = this.findById(id);
 		
 		AccountBankEvent accountBankEvent = new AccountBankEvent();
-		// accountBankEvent.setId(this.accountBankMapper.getAccountBankEventId());
-		accountBankEvent.setId(999);
+		accountBankEvent.setId(this.accountBankMapper.getAccountBankEventId());
 		accountBankEvent.setAccountBankId(accountBank.getId());
 		accountBankEvent.setDomain(domain);
 		accountBankEvent.setEventType(accountBankEventType); 

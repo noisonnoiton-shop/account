@@ -1,9 +1,13 @@
 package com.skcc.account.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Builder;
 import lombok.Data;
@@ -37,9 +41,13 @@ public class Account {
     
     @Column(length = 255, nullable = false)
     private String scope;
+
+    @Column
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     
     @Builder
-    public Account(Long id, String username, String name, String password, String mobile, String address, String scope) {
+    public Account(Long id, String username, String name, String password, String mobile, String address, String scope, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
     	this.name = name;
@@ -47,5 +55,6 @@ public class Account {
         this.mobile = mobile;
         this.address = address;
         this.scope = scope;
+        this.createdAt = createdAt;
     }
 }
