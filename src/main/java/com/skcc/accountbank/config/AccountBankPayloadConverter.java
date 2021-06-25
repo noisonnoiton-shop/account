@@ -1,8 +1,39 @@
 package com.skcc.accountbank.config;
 
-import com.skcc.accountbank.event.message.AccountBankPayload;
-import com.skcc.config.GenericJsonConverter;
+import java.io.IOException;
 
-public class AccountBankPayloadConverter extends GenericJsonConverter<AccountBankPayload>{
-  
+import javax.persistence.AttributeConverter;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skcc.accountbank.event.message.AccountBankPayload;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class AccountBankPayloadConverter implements AttributeConverter<AccountBankPayload, String> {
+
+  private final ObjectMapper objectMapper = new ObjectMapper();
+
+  @Override
+  public String convertToDatabaseColumn(AccountBankPayload tData) {
+
+    try {
+      return objectMapper.writeValueAsString(tData);
+    } catch (JsonProcessingException e) {
+      log.error("fail to serialize as object into Json : {}", tData, e);
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public AccountBankPayload convertToEntityAttribute(String jsonStr) {
+
+    try {
+      return objectMapper.readValue(jsonStr, AccountBankPayload.class);
+    } catch (IOException e) {
+      log.error("fail to deserialize as Json into Object : {}", jsonStr, e);
+      throw new RuntimeException(e);
+    }
+  }
 }

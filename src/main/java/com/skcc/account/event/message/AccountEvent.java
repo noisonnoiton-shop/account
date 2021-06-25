@@ -16,7 +16,6 @@ import com.skcc.account.config.AccountPayloadConverter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
 @Entity
 public class AccountEvent {
 

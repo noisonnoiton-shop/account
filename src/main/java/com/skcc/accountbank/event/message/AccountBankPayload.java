@@ -1,16 +1,16 @@
 package com.skcc.accountbank.event.message;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Data
 public class AccountBankPayload {
 	
 	private long id;

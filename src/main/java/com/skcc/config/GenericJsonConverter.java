@@ -29,8 +29,7 @@ public class GenericJsonConverter<T> implements AttributeConverter<T, String> {
 	public T convertToEntityAttribute(String jsonStr) {
 
 		try {
-			return objectMapper.readValue(jsonStr, new TypeReference<T>() {
-			});
+			return objectMapper.readValue(jsonStr, new TypeReference<T>() {});
 		} catch (IOException e) {
 			log.error("fail to deserialize as Json into Object : {}", jsonStr, e);
 			throw new RuntimeException(e);
