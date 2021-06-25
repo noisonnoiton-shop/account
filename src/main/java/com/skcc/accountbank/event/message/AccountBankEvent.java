@@ -1,22 +1,61 @@
 package com.skcc.accountbank.event.message;
 
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+import com.skcc.accountbank.config.AccountBankPayloadConverter;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Getter
+@Data
+@Entity
 public class AccountBankEvent {
-	
-	private long id;
+
+	@Id
+	@SequenceGenerator(name = "event_seq_gen", sequenceName = "event_seq", allocationSize = 1)
+
+	@GeneratedValue(generator = "event_seq_gen")
+	private Long id;
+
+	@Column(length = 255)
 	private String domain;
-	private long accountBankId;
+
+	@Column
+	private Long accountBankId;
+
+	@Column
+	@Enumerated(EnumType.STRING)
 	private AccountBankEventType eventType;
+
+	@Column(columnDefinition = "TEXT")
+	@Convert(converter = AccountBankPayloadConverter.class)
 	private AccountBankPayload payload;
+
+	@Column(length = 255)
 	private String txId;
-	private String createdAt;
-	
-	public AccountBankEvent(long id, String domain, long accountBankId, AccountBankEventType eventType,
-			AccountBankPayload payload, String txId, String createdAt) {
-		super();
+
+	@Column
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+
+	@Builder
+	public AccountBankEvent(Long id, String domain, Long accountBankId, AccountBankEventType eventType,
+			AccountBankPayload payload, String txId, LocalDateTime createdAt) {
 		this.id = id;
 		this.domain = domain;
 		this.accountBankId = accountBankId;
@@ -25,70 +64,5 @@ public class AccountBankEvent {
 		this.txId = txId;
 		this.createdAt = createdAt;
 	}
-	
-	public AccountBankEvent() {}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	public long getAccountBankId() {
-		return accountBankId;
-	}
-
-	public void setAccountBankId(long accountBankId) {
-		this.accountBankId = accountBankId;
-	}
-
-	public AccountBankEventType getEventType() {
-		return eventType;
-	}
-
-	public void setEventType(AccountBankEventType eventType) {
-		this.eventType = eventType;
-	}
-
-	public AccountBankPayload getPayload() {
-		return payload;
-	}
-
-	public void setPayload(AccountBankPayload payload) {
-		this.payload = payload;
-	}
-
-	public String getTxId() {
-		return txId;
-	}
-
-	public void setTxId(String txId) {
-		this.txId = txId;
-	}
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	@Override
-	public String toString() {
-		return "AccountBankEvent [id=" + id + ", domain=" + domain + ", accountBankId=" + accountBankId + ", eventType="
-				+ eventType + ", payload=" + payload + ", txId=" + txId + ", createdAt=" + createdAt + "]";
-	}
-	
-	
 }
