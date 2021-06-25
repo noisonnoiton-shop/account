@@ -1,8 +1,11 @@
 package com.skcc;
 
+import java.time.LocalDateTime;
+
 import javax.sql.DataSource;
 
 import com.skcc.account.domain.Account;
+import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.repository.AccountRepository;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,19 +24,19 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class JsAccountServiceApplication {
-	
+
 	@Autowired
 	AccountRepository accountRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JsAccountServiceApplication.class, args);
 	}
-	
-	@Bean 
+
+	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
+
 	@Autowired
 	private DataSource dataSource;
 
@@ -44,29 +47,30 @@ public class JsAccountServiceApplication {
 	String mybatisConfig;
 
 	private static final Logger log = LoggerFactory.getLogger("main");
-	
+
 	@Bean
-	public SqlSessionFactory sqlSessionFactory() throws Exception{
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-		
+
 		log.info("Database ====== " + mybatisConfig);
 		sessionFactory.setConfigLocation(applicationContext.getResource("classpath:" + mybatisConfig));
-		
+
 		Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*Mapper.xml");
-		
+
 		sessionFactory.setMapperLocations(res);
-		
+
 		return sessionFactory.getObject();
 	}
-	
-	@Bean
+
+	// @Bean
 	public String createSampleData(AccountRepository accountRepository) {
+		
 		long id = 1;
 		Account account = Account.builder().id(id).username("a").name("a").mobile("a").address("a").password("asdfasdf11")
-				.scope("customer").build();
-    	accountRepository.save(account);
-    	
-    	return "Created,,,,";
+				.scope("customer").createdAt(LocalDateTime.now()).build();
+		accountRepository.save(account);
+
+		return "Created,,,,";
 	}
 }
