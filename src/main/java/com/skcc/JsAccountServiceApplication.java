@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.sql.DataSource;
 
 import com.skcc.account.domain.Account;
-import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.repository.AccountRepository;
 
 import org.apache.ibatis.session.SqlSessionFactory;
