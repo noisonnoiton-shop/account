@@ -2,13 +2,6 @@ package com.skcc.accountbank.service;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.event.message.AccountBankEvent;
@@ -16,13 +9,24 @@ import com.skcc.accountbank.event.message.AccountBankEventType;
 import com.skcc.accountbank.event.message.AccountBankPayload;
 import com.skcc.accountbank.publish.AccountBankPublish;
 import com.skcc.accountbank.repository.AccountBankMapper;
+import com.skcc.accountbank.repository.AccountBankRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountBankService {
 	
 	private static final Logger log = LoggerFactory.getLogger(AccountBankService.class);
 
+	@Autowired
 	private AccountBankMapper accountBankMapper;
+
+	private AccountBankRepository accountBankRepository;
 	private AccountBankPublish accountBankPublish;
 	
 	@Value("${domain.accountBank.name}")
@@ -32,13 +36,14 @@ public class AccountBankService {
 	private AccountBankService accountBankService;
 	
 	@Autowired
-	public AccountBankService(AccountBankMapper accountBankMapper, AccountBankPublish accountBankPublish) {
-		this.accountBankMapper = accountBankMapper;
+	public AccountBankService(AccountBankRepository accountBankRepository, AccountBankPublish accountBankPublish) {
+		this.accountBankRepository = accountBankRepository;
 		this.accountBankPublish = accountBankPublish;
 	}
 	
 	public AccountBank findAccountBankByAccountId(long accountId) {
-		return accountBankMapper.findAccountBankByAccountId(accountId);
+		// return accountBankMapper.findAccountBankByAccountId(accountId);
+		return accountBankRepository.findAccountBankByAccountId(accountId);
 	}
 	
 	public boolean createAccountBankAndCreatePublishEvent(AccountEvent accountEvent) {
@@ -72,7 +77,8 @@ public class AccountBankService {
 	
 	public AccountBank createAccountBank(AccountBank accountBank) throws Exception {
 		this.createAccountBankValidationCheck(accountBank);
-		this.accountBankMapper.createAccountBank(accountBank);
+		// this.accountBankMapper.createAccountBank(accountBank);
+		this.accountBankRepository.save(accountBank);
 		
 		return accountBank;
 	}
@@ -110,6 +116,7 @@ public class AccountBankService {
 	
 	public void createAccountBankEvent(AccountBankEvent accountBankEvent) {
 		this.accountBankMapper.createAccountBankEvent(accountBankEvent);
+
 	}
 	
 	public void publishAccountBankEvent(AccountBankEvent accountBankEvent) {
@@ -122,7 +129,8 @@ public class AccountBankService {
 		AccountBank accountBank = this.findById(id);
 		
 		AccountBankEvent accountBankEvent = new AccountBankEvent();
-		accountBankEvent.setId(this.accountBankMapper.getAccountBankEventId());
+		// accountBankEvent.setId(this.accountBankMapper.getAccountBankEventId());
+		accountBankEvent.setId(999);
 		accountBankEvent.setAccountBankId(accountBank.getId());
 		accountBankEvent.setDomain(domain);
 		accountBankEvent.setEventType(accountBankEventType); 
@@ -135,7 +143,7 @@ public class AccountBankService {
 	}
 	
 	public AccountBank findById(long id) {
-		return this.accountBankMapper.findById(id); 
+		return this.accountBankRepository.findById(id);
 	}
 	
 }

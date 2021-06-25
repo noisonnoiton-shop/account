@@ -77,9 +77,9 @@ public class AccountController {
 		return this.accountService.getAccountEvent();
 	}
 	
-//	@PostMapping(value="/accounts/{id}")
-//	public boolean editAccount(@RequestBody Account account, @PathVariable long id) throws Exception {
-//		return this.accountService.editAccountAndCreatePublishEvent(account, id);
-//	}
+	@PostMapping(value="/accounts/{id}")
+	public boolean editAccount(@RequestBody Account account, @PathVariable long id) throws Exception {
+		return this.accountService.editAccountAndCreatePublishEvent(account, id);
+	}
 	
 }

@@ -31,7 +31,7 @@
 		select * from account_banks where id = #{id}
 	</select>
 	
-	<select id="getAccountBankEventId" parameterType="long" resultType="long">
+	<select id="getAccountBankEventId" resultType="long">
 		select ${event-nextval}
 	</select>
 	

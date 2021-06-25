@@ -146,8 +146,9 @@ public class AccountService {
 		return account;
 	}
 
-	public boolean editAccount(Account account, long id) throws Exception {
-		return this.accountMapper.editAccount(account);
+	public Account editAccount(Account account, long id) throws Exception {
+		// return this.accountMapper.editAccount(account);
+		return this.accountRepository.save(account);
 	}
 	
 	public void editAccountValidationCheck(Account account, long id) throws Exception {

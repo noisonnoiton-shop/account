@@ -46,6 +46,7 @@ spring:
   #   platform: mariadb
   #   initialization-mode: always
   #   continue-on-error: true
+  
   cloud:
     stream:
       binders:

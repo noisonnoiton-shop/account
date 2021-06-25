@@ -2,7 +2,6 @@ package com.skcc;
 
 import javax.sql.DataSource;
 
-import com.skcc.account.aspect.ConvertAccountEventAspect;
 import com.skcc.account.domain.Account;
 import com.skcc.account.repository.AccountRepository;
 
@@ -50,7 +49,8 @@ public class JsAccountServiceApplication {
 	public SqlSessionFactory sqlSessionFactory() throws Exception{
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-
+		
+		log.info("Database ====== " + mybatisConfig);
 		sessionFactory.setConfigLocation(applicationContext.getResource("classpath:" + mybatisConfig));
 		
 		Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*Mapper.xml");
