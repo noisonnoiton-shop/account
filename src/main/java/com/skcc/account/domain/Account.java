@@ -12,11 +12,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@Getter
 @Data
 @Entity
 public class Account {
@@ -25,22 +23,22 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String username ;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String name;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String password;
     
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String mobile;
     
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String address;
     
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String scope;
 
     @Column
