@@ -10,6 +10,12 @@ domain:
 mybatis:
   config-location: mybatis-config-h2.xml
 
+logging:
+  level:
+    com.amazonaws.xray: DEBUG
+    org.springframework.boot: INFO
+    org.springframework.core : INFO
+
 spring:
   application:
     name: awesome-account-service
