@@ -3,6 +3,7 @@ package com.skcc.account.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.controller.AccountController;
 import com.skcc.account.domain.Account;
 import com.skcc.account.event.message.AccountEvent;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@XRayEnabled
 @Service
 public class AccountService {
 	

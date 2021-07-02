@@ -1,5 +1,6 @@
 package com.skcc.accountbank.controller;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.service.AccountBankService;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@XRayEnabled
 @RestController
 @RequestMapping("/v1")
 public class AccountBankController {
