@@ -3,6 +3,7 @@ package com.skcc.accountbank.service;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.event.message.AccountBankEvent;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@XRayEnabled
 @Service
 public class AccountBankService {
 
