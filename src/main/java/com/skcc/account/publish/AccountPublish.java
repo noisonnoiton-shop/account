@@ -8,10 +8,12 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.event.channel.AccountOutputChannel;
 import com.skcc.account.event.message.AccountEvent;
 
 @Component
+@XRayEnabled
 @EnableBinding(AccountOutputChannel.class)
 public class AccountPublish {
 	
