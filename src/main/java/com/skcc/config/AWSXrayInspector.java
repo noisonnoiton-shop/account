@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class AWSXrayInspector extends AbstractXRayInterceptor {
+
   @Override
   protected Map<String, Map<String, Object>> generateMetadata(ProceedingJoinPoint proceedingJoinPoint,
       Subsegment subsegment) {
@@ -20,7 +21,7 @@ public class AWSXrayInspector extends AbstractXRayInterceptor {
   }
 
   @Override
-  @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*Controller)")
+  @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && ( bean(*Controller) || bean(*Subscribe) || bean(*Publish) )")
   public void xrayEnabledClasses() {
   }
 
