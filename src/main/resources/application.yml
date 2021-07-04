@@ -37,6 +37,7 @@ spring:
     password: null
     driver-class-name: org.h2.Driver
     initialization-mode: always
+    jdbc-interceptors: com.amazonaws.xray.sql.mysql.TracingInterceptor
   h2:
     console:
       enabled: true
