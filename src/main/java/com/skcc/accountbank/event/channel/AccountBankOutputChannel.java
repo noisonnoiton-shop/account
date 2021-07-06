@@ -6,6 +6,6 @@ import org.springframework.messaging.MessageChannel;
 public interface AccountBankOutputChannel {
 	String AccountBankOutput = "AccountBankOutput";
 	
-	@Output(AccountBankOutputChannel.AccountBankOutput)
+	// @Output(AccountBankOutputChannel.AccountBankOutput)
 	MessageChannel getMessageChannel();
 }

@@ -6,6 +6,6 @@ import org.springframework.messaging.SubscribableChannel;
 public interface AccountBankInputChannel {
 	String accountCreated = "accountCreated";
 	
-	@Input(AccountBankInputChannel.accountCreated)
+	// @Input(AccountBankInputChannel.accountCreated)
 	SubscribableChannel productSoldOutInput();
 }

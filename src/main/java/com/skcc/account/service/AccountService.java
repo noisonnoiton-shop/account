@@ -9,7 +9,7 @@ import com.skcc.account.domain.Account;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.event.message.AccountEventType;
 import com.skcc.account.event.message.AccountPayload;
-import com.skcc.account.publish.AccountPublish;
+import com.skcc.account.producer.AccountProducer;
 import com.skcc.account.repository.AccountEventRepository;
 import com.skcc.account.repository.AccountRepository;
 
@@ -24,15 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AccountService {
 	
-	// @Autowired
-	// private AccountMapper accountMapper;
-	
-	private AccountPublish accountPublish;
 	private AccountRepository accountRepository;
 	private AccountEventRepository accountEventRepository;
-	
+
 	@Autowired
-	private AccountService accountService;
+	private AccountProducer accountProducer;
 	
 	@Value("${domain.account.name}")
 	private String domainName;
@@ -40,10 +36,9 @@ public class AccountService {
 	private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 	
 	@Autowired
-	public AccountService(AccountRepository accountRepository, AccountEventRepository accountEventRepository, AccountPublish accountPublish) {
+	public AccountService(AccountRepository accountRepository, AccountEventRepository accountEventRepository) {
 		this.accountRepository = accountRepository;
 		this.accountEventRepository = accountEventRepository;
-		this.accountPublish = accountPublish;
 	}
 	
 	public Account login(Account account) {
@@ -78,13 +73,13 @@ public class AccountService {
 	public boolean createAccountAndCreatePublishEvent(Account account) {
 		boolean result = false;
 		try {
-			this.accountService.createAccountAndCreatePublishAccountCreatedEvent(account);
+			this.createAccountAndCreatePublishAccountCreatedEvent(account);
 			result = true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			result = false;
 			try {
-				this.accountService.CreatePublishAccountCreateFailedEvent(account);
+				this.CreatePublishAccountCreateFailedEvent(account);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -95,13 +90,13 @@ public class AccountService {
 	public boolean editAccountAndCreatePublishEvent(Account account, long id) {
 		boolean result = false;
 		try {
-			this.accountService.editAccountAndCreatePublishAccountEditedEvent(account, id);
+			this.editAccountAndCreatePublishAccountEditedEvent(account, id);
 			result = true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			result = false;
 			try {
-				this.accountService.CreatePublishAccountEditFailedEvent(account);
+				this.CreatePublishAccountEditFailedEvent(account);
 			}catch(Exception e1) {
 				e1.printStackTrace();
 			}
@@ -134,9 +129,10 @@ public class AccountService {
 	}
 	
 	public void createAndPublishEvent(String txId, long id, AccountEventType accountEventType) {
-		AccountEvent accountEvent = this.accountService.convertAccountToAccountEvent(txId, id, accountEventType);
+		AccountEvent accountEvent = this.convertAccountToAccountEvent(txId, id, accountEventType);
 		this.createAccountEvent(accountEvent);
-		this.publishAccountEvent(accountEvent);
+		// this.publishAccountEvent(accountEvent);
+		this.produceAccountEvent(accountEvent);
 	}
 		
 	public Account createAccount(Account account) {
@@ -164,8 +160,13 @@ public class AccountService {
 		return this.accountEventRepository.save(accountEvent);
 	}
 	
-	public boolean publishAccountEvent(AccountEvent accountEvent) {
-		return this.accountPublish.send(accountEvent);
+	// public boolean publishAccountEvent(AccountEvent accountEvent) {
+	// 	return this.accountPublish.send(accountEvent);
+	// }
+
+	public boolean produceAccountEvent(AccountEvent accountEvent) {
+		// return this.publisher.send(accountEvent);
+		return this.accountProducer.send(accountEvent);
 	}
 	
 	public List<AccountEvent> getAccountEvent() {

@@ -9,7 +9,7 @@ import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.event.message.AccountBankEvent;
 import com.skcc.accountbank.event.message.AccountBankEventType;
 import com.skcc.accountbank.event.message.AccountBankPayload;
-import com.skcc.accountbank.publish.AccountBankPublish;
+import com.skcc.accountbank.producer.AccountBankProducer;
 import com.skcc.accountbank.repository.AccountBankEventRepository;
 import com.skcc.accountbank.repository.AccountBankRepository;
 
@@ -31,7 +31,9 @@ public class AccountBankService {
 
 	private AccountBankRepository accountBankRepository;
 	private AccountBankEventRepository accountBankEventRepository;
-	private AccountBankPublish accountBankPublish;
+
+	@Autowired
+	private AccountBankProducer accountBankProducer;
 
 	@Value("${domain.accountBank.name}")
 	private String domain;
@@ -41,10 +43,9 @@ public class AccountBankService {
 
 	@Autowired
 	public AccountBankService(AccountBankRepository accountBankRepository,
-			AccountBankEventRepository accountBankEventRepository, AccountBankPublish accountBankPublish) {
+			AccountBankEventRepository accountBankEventRepository) {
 		this.accountBankRepository = accountBankRepository;
 		this.accountBankEventRepository = accountBankEventRepository;
-		this.accountBankPublish = accountBankPublish;
 	}
 
 	public AccountBank findAccountBankByAccountId(long accountId) {
@@ -130,7 +131,8 @@ public class AccountBankService {
 	}
 
 	public void publishAccountBankEvent(AccountBankEvent accountBankEvent) {
-		this.accountBankPublish.send(accountBankEvent);
+		// this.accountBankPublish.send(accountBankEvent);
+		this.accountBankProducer.send(accountBankEvent);
 	}
 
 	public AccountBankEvent convertAccountBankToAccountBankEvent(String txId, long id,

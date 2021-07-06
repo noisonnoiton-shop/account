@@ -54,42 +54,51 @@ spring:
   #   initialization-mode: always
   #   continue-on-error: true
   
-  cloud:
-    stream:
-      binders:
-        rabbitmq:
-          type: rabbit
-          environment:
-            spring:
-              rabbitmq:
-                #host: rabbitmq
-                host: localhost
-                port: 5672
-                username: labs
-                password: awesome-rabbitmq
-      bindings:
-        accountCreated:
-          destination: accountExchange
-          group: account.accountCreated
-          content-type: application/json
-        AccountBankOutput:
-          destination: accountBankExchange
-          content-type: application/json
-        AccountOutput:
-          destination: accountExchange
-          content-type: application/json
-      rabbit:
-        bindings:
-          accountCreated:
-            consumer:
-              autoBindDlq: true
-              bindingRoutingKey: account.AccountCreated.#
-          AccountBankOutput:
-            producer:
-              routing-key-expression: headers['routeTo']
-          AccountOutput:
-            producer:
-              routing-key-expression: headers['routeTo']
+  rabbitmq:
+    addresses: localhost
+    username: labs
+    password: awesome-rabbitmq
+  # cloud:
+  #   stream:
+      # binders:
+      #   rabbitmq:
+      #     type: rabbit
+      #     environment:
+      #       spring:
+      #         rabbitmq:
+      #           #host: rabbitmq
+      #           host: localhost
+      #           port: 5672
+      #           username: labs
+      #           password: awesome-rabbitmq
+      # bindings:
+        # accountCreated:
+        #   destination: accountExchange
+        #   group: account.accountCreated
+        #   content-type: application/json
+        # AccountBankOutput:
+        #   destination: accountBankExchange
+        #   content-type: application/json
+        # AccountOutput:
+        #   destination: accountExchange
+        #   content-type: application/json
+        # accountCreated:
+        #   destination: accountTopic
+        #   group: account.accountCreated
+        #   content-type: application/json
+
+      # rabbit:
+      #   bindings:
+      #     accountCreated:
+      #       consumer:
+      #         autoBindDlq: true
+      #         bindingRoutingKey: account.AccountCreated.#
+          # AccountBankOutput:
+          #   producer:
+          #     routing-key-expression: headers['routeTo']
+          # AccountOutput:
+          #   producer:
+          #     routing-key-expression: headers['routeTo']
 
 management:
   endpoints:
