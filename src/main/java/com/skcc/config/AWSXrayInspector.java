@@ -21,7 +21,7 @@ public class AWSXrayInspector extends AbstractXRayInterceptor {
   }
 
   @Override
-  @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && ( bean(*Controller) || bean(*Subscribe) || bean(*Publish) )")
+  @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*Controller)")
   public void xrayEnabledClasses() {
   }
 
