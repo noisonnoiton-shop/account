@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Order(2)
+@Order(1)
 public class ConvertAccountBankEventAspect {
 	
 	@Pointcut("execution(* com.skcc.*.service.*.convertAccountBankToAccountBankEvent(..))")
