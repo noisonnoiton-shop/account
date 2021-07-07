@@ -58,6 +58,18 @@ spring:
     addresses: localhost
     username: labs
     password: awesome-rabbitmq
+  cloud:
+    stream:
+      bindings:
+        accountOutput:
+          destination: accountTopic
+          content-type: application/json
+      rabbit:
+        bindings:
+          accountOutput:
+            producer:
+              routing-key-expression: headers['routeTo']
+
   # cloud:
   #   stream:
       # binders:

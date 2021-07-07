@@ -23,7 +23,7 @@ public class AccountProducer {
   public boolean send(AccountEvent accountEvent) {
     log.info("routeTo" + domain + "." + accountEvent.getEventType());
 
-    return this.streamBridge.send("accountTopic", MessageBuilder.withPayload(accountEvent)
+    return this.streamBridge.send("accountOutput", MessageBuilder.withPayload(accountEvent)
     .setHeader("routeTo", domain + "." + accountEvent.getEventType()).build());
   }
 }
