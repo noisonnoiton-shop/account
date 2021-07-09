@@ -22,7 +22,7 @@
                         "configuration": {
                             "BranchName": "eks",
                             "OutputArtifactFormat": "CODE_ZIP",
-                            "PollForSourceChanges": "true",
+                            "PollForSourceChanges": "false",
                             "RepositoryName": "account"
                         },
                         "outputArtifacts": [
