@@ -45,7 +45,7 @@
                         "configuration": {
                             "BranchName": "master",
                             "OutputArtifactFormat": "CODE_ZIP",
-                            "PollForSourceChanges": "true",
+                            "PollForSourceChanges": "false",
                             "RepositoryName": "container-devsecops-wksp-config"
                         },
                         "outputArtifacts": [
