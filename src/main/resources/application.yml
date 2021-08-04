@@ -10,6 +10,7 @@ domain:
 mybatis:
   config-location: mybatis-config-h2.xml
 
+
 logging:
   level:
     com.amazonaws.xray: DEBUG
