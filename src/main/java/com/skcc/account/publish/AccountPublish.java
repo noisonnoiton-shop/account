@@ -1,6 +1,6 @@
 package com.skcc.account.publish;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+// import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.event.channel.AccountOutputChannel;
 import com.skcc.account.event.message.AccountEvent;
 
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-// @Component
 // @XRayEnabled
+// @Component
 // @EnableBinding(AccountOutputChannel.class)
 public class AccountPublish {
 	

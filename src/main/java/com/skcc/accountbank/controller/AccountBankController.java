@@ -1,6 +1,6 @@
 package com.skcc.accountbank.controller;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+// import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.service.AccountBankService;

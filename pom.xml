@@ -77,12 +77,12 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.10.5</version>
+			<version>3.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -119,7 +119,7 @@
 		</dependency>
 
 		<!-- AWS X-Ray dependency  -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-apache-http</artifactId>
 		</dependency>
@@ -142,7 +142,28 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-xray-recorder-sdk-core</artifactId>
+		</dependency> -->
+
+		<!-- OTEL -->
+		<!-- <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-sleuth-brave</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-otel-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-otlp</artifactId>
+			<version>1.23.1</version>
+		</dependency> -->
 
 	</dependencies>
 
@@ -166,13 +187,21 @@
 				<scope>import</scope>
 			</dependency>
 
-			<dependency>
+			<!-- <dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-sleuth-otel-dependencies</artifactId>
+				<version>1.1.2</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency> -->
+
+			<!-- <dependency>
 				<groupId>com.amazonaws</groupId>
 				<artifactId>aws-xray-recorder-sdk-bom</artifactId>
 				<version>2.9.0</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
+			</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 

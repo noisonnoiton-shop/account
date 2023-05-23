@@ -3,7 +3,7 @@ package com.skcc.accountbank.service;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+// import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.event.message.AccountBankEvent;

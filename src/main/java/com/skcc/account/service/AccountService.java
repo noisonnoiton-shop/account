@@ -3,7 +3,7 @@ package com.skcc.account.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+// import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.controller.AccountController;
 import com.skcc.account.domain.Account;
 import com.skcc.account.event.message.AccountEvent;
