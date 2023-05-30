@@ -5,11 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-// import com.amazonaws.xray.spring.aop.XRayEnabled;
-import com.skcc.account.domain.Account;
-import com.skcc.account.event.message.AccountEvent;
-import com.skcc.account.service.AccountService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+// import com.amazonaws.xray.spring.aop.XRayEnabled;
+import com.skcc.account.domain.Account;
+import com.skcc.account.event.message.AccountEvent;
+import com.skcc.account.service.AccountService;
+
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 // @XRayEnabled
 @RestController
@@ -63,8 +65,9 @@ public class AccountController {
 		
 		return resultAccount;
 	}
-	
+
 	@GetMapping(value="/accounts/{id}")
+	// @WithSpan
 	public Account findById(@PathVariable long id) {
 		return this.accountService.findById(id);
 	}

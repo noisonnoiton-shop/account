@@ -3,6 +3,13 @@ package com.skcc.account.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 // import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.skcc.account.controller.AccountController;
 import com.skcc.account.domain.Account;
@@ -13,12 +20,7 @@ import com.skcc.account.producer.AccountProducer;
 import com.skcc.account.repository.AccountEventRepository;
 import com.skcc.account.repository.AccountRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 // @XRayEnabled
 @Service
@@ -61,6 +63,7 @@ public class AccountService {
 		}
 	}
 	
+	// @WithSpan
 	public Account findById(long id) {
 //		return this.accountMapper.findById(id);
 		return this.accountRepository.findById(id);
