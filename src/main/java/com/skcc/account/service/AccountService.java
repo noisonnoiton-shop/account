@@ -20,8 +20,6 @@ import com.skcc.account.producer.AccountProducer;
 import com.skcc.account.repository.AccountEventRepository;
 import com.skcc.account.repository.AccountRepository;
 
-import io.opentelemetry.instrumentation.annotations.WithSpan;
-
 // @XRayEnabled
 @Service
 public class AccountService {
@@ -63,7 +61,6 @@ public class AccountService {
 		}
 	}
 	
-	// @WithSpan
 	public Account findById(long id) {
 //		return this.accountMapper.findById(id);
 		return this.accountRepository.findById(id);

@@ -5,6 +5,9 @@ import com.skcc.account.event.message.AccountEvent;
 import com.skcc.accountbank.domain.AccountBank;
 import com.skcc.accountbank.service.AccountBankService;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

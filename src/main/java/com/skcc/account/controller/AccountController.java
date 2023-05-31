@@ -67,7 +67,7 @@ public class AccountController {
 	}
 
 	@GetMapping(value="/accounts/{id}")
-	// @WithSpan
+	@WithSpan
 	public Account findById(@PathVariable long id) {
 		return this.accountService.findById(id);
 	}

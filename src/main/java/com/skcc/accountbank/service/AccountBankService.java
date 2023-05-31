@@ -13,6 +13,9 @@ import com.skcc.accountbank.producer.AccountBankProducer;
 import com.skcc.accountbank.repository.AccountBankEventRepository;
 import com.skcc.accountbank.repository.AccountBankRepository;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +51,8 @@ public class AccountBankService {
 		this.accountBankEventRepository = accountBankEventRepository;
 	}
 
-	public AccountBank findAccountBankByAccountId(long accountId) {
+	@WithSpan
+	public AccountBank findAccountBankByAccountId(@SpanAttribute("accountId") long accountId) {
 		// return accountBankMapper.findAccountBankByAccountId(accountId);
 		return accountBankRepository.findAccountBankByAccountId(accountId);
 	}
