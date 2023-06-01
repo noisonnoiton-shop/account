@@ -1,0 +1,37 @@
+java -Dotel.traces.exporter=jaeger \
+  -Dotel.metrics.exporter=none \
+  -Dotel.logs.exporter=none \
+  -Dotel.instrumentation.common.default-enabled=false \
+  -Dotel.instrumentation.opentelemetry-api.enabled=true \
+  -Dotel.instrumentation.tomcat.enabled=true \
+  -Dotel.instrumentation.spring-webmvc.enabled=true \
+  -Dotel.instrumentation.spring-data.enabled=true \
+  -Dotel.instrumentation.hibernate.enabled=true \
+  -Dotel.instrumentation.jdbc.enabled=true \
+  -Dotel.instrumentation.opentelemetry-instrumentation-annotations.enabled=true \
+  -Dotel.exporter.jaeger.endpoint=http://localhost:14250 \
+  -Dotel.service.name=account.manual \
+  -Dotel.propagators=jaeger \
+  -Dapplication.home=/Users/noisonnoiton/git/eai/account \
+  -javaagent:/Users/noisonnoiton/git/eai/account/opentelemetry-javaagent.jar \
+  -jar \
+  /Users/noisonnoiton/git/eai/account/target/awesome-account-service-0.0.1-SNAPSHOT.jar
+
+
+
+mvn spring-boot:run \
+  -Dotel.traces.exporter=jaeger \
+  -Dotel.metrics.exporter=none \
+  -Dotel.logs.exporter=none \
+  -Dotel.instrumentation.common.default-enabled=false \
+  -Dotel.instrumentation.opentelemetry-api.enabled=true \
+  -Dotel.instrumentation.tomcat.enabled=true \
+  -Dotel.instrumentation.spring-webmvc.enabled=true \
+  -Dotel.instrumentation.spring-data.enabled=true \
+  -Dotel.instrumentation.hibernate.enabled=true \
+  -Dotel.instrumentation.jdbc.enabled=true \
+  -Dotel.instrumentation.opentelemetry-instrumentation-annotations.enabled=true \
+  -Dotel.exporter.jaeger.endpoint=http://localhost:14250 \
+  -Dotel.service.name=account.manual \
+  -Dotel.propagators=jaeger \
+  -Dspring-boot.run.jvmArguments=-javaagent:/Users/noisonnoiton/git/eai/account/opentelemetry-javaagent.jar
