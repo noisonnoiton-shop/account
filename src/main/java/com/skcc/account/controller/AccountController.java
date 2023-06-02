@@ -20,8 +20,6 @@ import com.skcc.account.domain.Account;
 import com.skcc.account.event.message.AccountEvent;
 import com.skcc.account.service.AccountService;
 
-import io.opentelemetry.instrumentation.annotations.WithSpan;
-
 // @XRayEnabled
 @RestController
 @RequestMapping("/v1")
@@ -67,7 +65,6 @@ public class AccountController {
 	}
 
 	@GetMapping(value="/accounts/{id}")
-	@WithSpan
 	public Account findById(@PathVariable long id) {
 		return this.accountService.findById(id);
 	}

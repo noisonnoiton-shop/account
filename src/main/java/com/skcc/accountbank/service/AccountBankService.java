@@ -12,6 +12,7 @@ import com.skcc.accountbank.event.message.AccountBankPayload;
 import com.skcc.accountbank.producer.AccountBankProducer;
 import com.skcc.accountbank.repository.AccountBankEventRepository;
 import com.skcc.accountbank.repository.AccountBankRepository;
+import com.skcc.config.OtelConfig;
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
@@ -23,11 +24,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Scope;
+
 // @XRayEnabled
 @Service
 public class AccountBankService {
 
 	private static final Logger log = LoggerFactory.getLogger(AccountBankService.class);
+
+	Tracer tracer = OtelConfig.openTelemetry.getTracer("instrumentation-library-name", "1.0.0");
 
 	// @Autowired
 	// private AccountBankMapper accountBankMapper;
@@ -53,6 +60,17 @@ public class AccountBankService {
 
 	@WithSpan
 	public AccountBank findAccountBankByAccountId(@SpanAttribute("accountId") long accountId) {
+	// public AccountBank findAccountBankByAccountId(long accountId) {
+		
+		Span span = tracer.spanBuilder("manual span").startSpan();
+		// Make the span the current span
+		try (Scope ss = span.makeCurrent()) {
+		// In this scope, the span is the current/active span
+			span.setAttribute("accountId", accountId);
+		} finally {
+			span.end();
+		}
+
 		// return accountBankMapper.findAccountBankByAccountId(accountId);
 		return accountBankRepository.findAccountBankByAccountId(accountId);
 	}
