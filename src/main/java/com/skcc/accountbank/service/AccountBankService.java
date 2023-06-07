@@ -1,5 +1,6 @@
 package com.skcc.accountbank.service;
 
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,6 +17,7 @@ import com.skcc.config.OtelConfig;
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
+import io.opentelemetry.semconv.trace.attributes.SemanticAttributes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
 
 // @XRayEnabled
@@ -34,13 +37,13 @@ public class AccountBankService {
 
 	private static final Logger log = LoggerFactory.getLogger(AccountBankService.class);
 
-	Tracer tracer = OtelConfig.openTelemetry.getTracer("instrumentation-library-name", "1.0.0");
-
 	// @Autowired
 	// private AccountBankMapper accountBankMapper;
 
 	private AccountBankRepository accountBankRepository;
 	private AccountBankEventRepository accountBankEventRepository;
+	// private OtelConfig otelConfig;
+	private Tracer tracer;
 
 	@Autowired
 	private AccountBankProducer accountBankProducer;
@@ -53,26 +56,31 @@ public class AccountBankService {
 
 	@Autowired
 	public AccountBankService(AccountBankRepository accountBankRepository,
-			AccountBankEventRepository accountBankEventRepository) {
+			AccountBankEventRepository accountBankEventRepository,
+			OtelConfig otelConfig,
+			Tracer tracer
+			) {
 		this.accountBankRepository = accountBankRepository;
 		this.accountBankEventRepository = accountBankEventRepository;
+		// this.otelConfig = otelConfig;
+		this.tracer = tracer;
 	}
 
 	@WithSpan
-	public AccountBank findAccountBankByAccountId(@SpanAttribute("accountId") long accountId) {
+	public AccountBank findAccountBankByAccountId(@SpanAttribute("accountId") long accountId, Span parentSpan) {
 	// public AccountBank findAccountBankByAccountId(long accountId) {
-		
-		Span span = tracer.spanBuilder("manual span").startSpan();
-		// Make the span the current span
-		try (Scope ss = span.makeCurrent()) {
-		// In this scope, the span is the current/active span
+
+		// Tracer tracer = this.otelConfig.openTelemetry().getTracer("accountbank-instrumentation", "1.0.0");
+		Span span = tracer.spanBuilder("account.AccountBankService.findAccountBankByAccountId").setParent(Context.current().with(parentSpan)).startSpan();
+		try {
 			span.setAttribute("accountId", accountId);
+			return accountBankRepository.findAccountBankByAccountId(accountId);
 		} finally {
 			span.end();
 		}
 
 		// return accountBankMapper.findAccountBankByAccountId(accountId);
-		return accountBankRepository.findAccountBankByAccountId(accountId);
+		// return accountBankRepository.findAccountBankByAccountId(accountId);
 	}
 
 	public boolean createAccountBankAndCreatePublishEvent(AccountEvent accountEvent) {

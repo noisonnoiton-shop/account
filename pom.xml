@@ -170,6 +170,10 @@
 			<artifactId>opentelemetry-semconv</artifactId>
 			<version>1.26.0-alpha</version>
 		</dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-jaeger</artifactId>
+        </dependency>
 		<!-- <dependency>
 			<groupId>io.opentelemetry</groupId>
 			<artifactId>opentelemetry-exporters-jaeger</artifactId>

@@ -1,6 +1,13 @@
 server:
   port: 8180
 
+otel:
+  service:
+    name: account.manual
+  traces:
+    endpoint: http://localhost:4317
+  jaeger:
+    endpoint: http://localhost:14250
 
 domain:
   account:
