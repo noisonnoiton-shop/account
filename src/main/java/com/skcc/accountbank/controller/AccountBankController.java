@@ -91,7 +91,7 @@ public class AccountBankController {
 			span.setAttribute(SemanticAttributes.HTTP_METHOD, "GET");
 			span.setAttribute("accountId", accountId);
 
-			return accountBankService.findAccountBankByAccountId(accountId, span);
+			return accountBankService.findAccountBankByAccountId(accountId, span, String.valueOf(accountId));
 		} finally {
 			span.end();
 		}

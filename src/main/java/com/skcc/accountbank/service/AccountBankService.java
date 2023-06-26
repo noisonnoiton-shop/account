@@ -67,7 +67,7 @@ public class AccountBankService {
 	}
 
 	@WithSpan
-	public AccountBank findAccountBankByAccountId(@SpanAttribute("accountId") long accountId, Span parentSpan) {
+	public AccountBank findAccountBankByAccountId(long accountId, Span parentSpan, @SpanAttribute("accountId") String accountIdStr) {
 	// public AccountBank findAccountBankByAccountId(long accountId) {
 
 		// Tracer tracer = this.otelConfig.openTelemetry().getTracer("accountbank-instrumentation", "1.0.0");
